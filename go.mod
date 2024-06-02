@@ -1,4 +1,4 @@
-module go-websocket-demo
+module github.com/niLPotential/go-websocket-demo
 
 go 1.22.3
 
