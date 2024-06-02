@@ -30,7 +30,17 @@ func FailHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer cw.Close()
 
-	if _, err = cw.Write(GetTime()); err != nil {
-		log.Printf("Error writing message: %v", err)
+	for {
+		if _, _, err = c.Read(ctx); err != nil {
+			log.Printf("Error reading message: %v", err)
+		} else {
+			log.Println("Message successfully read")
+		}
+
+		if _, err = cw.Write(GetTime()); err != nil {
+			log.Printf("Error writing message: %v", err)
+		} else {
+			log.Println("Message successfully written")
+		}
 	}
 }
