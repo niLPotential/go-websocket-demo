@@ -25,7 +25,7 @@ func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithCancel(r.Context())
 	defer cancel()
 
-	// c.Write(ctx, websocket.MessageText, TimeDiv)
+	// c.Write(ctx, websocket.MessageText, GetTime())
 
 	cw, err := c.Writer(ctx, websocket.MessageText)
 	if err != nil {
@@ -36,5 +36,5 @@ func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer cw.Close()
 
-	cw.Write(TimeDiv)
+	cw.Write(GetTime())
 }
