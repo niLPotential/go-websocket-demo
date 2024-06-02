@@ -17,6 +17,9 @@ func main() {
 	http.HandleFunc("/fail", TmplHandler)
 	http.HandleFunc("/fail/ws", FailHandler)
 
+	http.HandleFunc("/solution", TmplHandler)
+	http.HandleFunc("/solution/ws", SolHandler)
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
