@@ -9,7 +9,6 @@ import (
 )
 
 var Tmpl = template.Must(template.ParseFiles("templates/index.html"))
-var TimeDiv = []byte(fmt.Sprintf(`<div id="time">%d</div>`, time.Now().Unix()))
 
 func main() {
 	http.HandleFunc("/demo", TmplHandler)
@@ -23,4 +22,8 @@ func main() {
 
 func TmplHandler(w http.ResponseWriter, r *http.Request) {
 	Tmpl.Execute(w, r.URL)
+}
+
+func GetTime() []byte {
+	return []byte(fmt.Sprintf(`<div id="time">%d</div>`, time.Now().Unix()))
 }

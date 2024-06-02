@@ -30,7 +30,7 @@ func FailHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer cw.Close()
 
-	if _, err = cw.Write(TimeDiv); err != nil {
+	if _, err = cw.Write(GetTime()); err != nil {
 		log.Printf("Error writing message: %v", err)
 	}
 }

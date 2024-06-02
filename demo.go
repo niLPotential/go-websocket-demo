@@ -21,7 +21,7 @@ func DemoHandler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithCancel(r.Context())
 	defer cancel()
 
-	if err = c.Write(ctx, websocket.MessageText, TimeDiv); err != nil {
+	if err = c.Write(ctx, websocket.MessageText, GetTime()); err != nil {
 		log.Printf("Error writing message: %v", err)
 	}
 
@@ -34,5 +34,5 @@ func DemoHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 	// defer cw.Close()
 
-	// cw.Write(TimeDiv)
+	// cw.Write(GetTime())
 }
