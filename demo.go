@@ -2,16 +2,14 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
-	"time"
 
 	"nhooyr.io/websocket"
 )
 
 func DemoHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello world"))
+	Tmpl.Execute(w, nil)
 }
 
 func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
@@ -27,6 +25,8 @@ func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithCancel(r.Context())
 	defer cancel()
 
+	// c.Write(ctx, websocket.MessageText, TimeDiv)
+
 	cw, err := c.Writer(ctx, websocket.MessageText)
 	if err != nil {
 		log.Printf("Error creating writer: %v", err)
@@ -34,6 +34,7 @@ func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		log.Println("Writer created")
 	}
+	defer cw.Close()
 
-	cw.Write([]byte(fmt.Sprintf(`<div id="time">%d</div>`, time.Now().Unix())))
+	cw.Write(TimeDiv)
 }
