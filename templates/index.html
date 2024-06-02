@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <div hx-ext="ws" ws-connect="/ws">
+  <div hx-ext="ws" ws-connect="{{ . }}/ws">
     <div id="time"></div>
     <form id="form" ws-send>
       <button type="submit">Send</button>
