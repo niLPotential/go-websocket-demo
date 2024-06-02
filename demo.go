@@ -21,18 +21,20 @@ func DemoHandler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithCancel(r.Context())
 	defer cancel()
 
-	if err = c.Write(ctx, websocket.MessageText, GetTime()); err != nil {
+	// if err = c.Write(ctx, websocket.MessageText, GetTime()); err != nil {
+	// 	log.Printf("Error writing message: %v", err)
+	// }
+
+	cw, err := c.Writer(ctx, websocket.MessageText)
+	if err != nil {
+		log.Printf("Error creating writer: %v", err)
+		return
+	} else {
+		log.Println("Writer created")
+	}
+	defer cw.Close()
+
+	if _, err = cw.Write(GetTime()); err != nil {
 		log.Printf("Error writing message: %v", err)
 	}
-
-	// cw, err := c.Writer(ctx, websocket.MessageText)
-	// if err != nil {
-	// 	log.Printf("Error creating writer: %v", err)
-	// 	return
-	// } else {
-	// 	log.Println("Writer created")
-	// }
-	// defer cw.Close()
-
-	// cw.Write(GetTime())
 }
